@@ -20,7 +20,13 @@ WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 
 # Initialize more variables and states below
-#
+space_background = pygame.image.load("spacebackground.jpeg").convert()
+space_background = pygame.transform.scale(space_background, (WIDTH, HEIGHT))
+
+astronaut = pygame.image.load("sprite_1.png").convert_alpha()
+astronaut_rect = astronaut.get_rect()  
+astronaut_rect.midbottom = (WIDTH // 2, HEIGHT)
+
 
 # Define main loop
 running = True
@@ -33,13 +39,15 @@ while running:
             running = False
 
     # Update game state
+    screen.blit(space_background, (0, 0))
+    screen.blit(astronaut, astronaut_rect)
 
     # Draw graphics and output
-    screen.fill(WHITE)
 
     # Update display
     pygame.display.flip()
     clock.tick(30)  # Limit frame rate to 30 fps
+
 
 # Quit Pygame   
 pygame.quit()
