@@ -27,6 +27,17 @@ astronaut = pygame.image.load("sprite_1.png").convert_alpha()
 astronaut_rect = astronaut.get_rect()  
 astronaut_rect.midbottom = (WIDTH // 2, HEIGHT)
 
+def moving():
+    if keys[pygame.K_LEFT]:
+        astronaut_rect.x -= 5
+    if keys[pygame.K_RIGHT]:
+        astronaut_rect.x += 5
+
+    if astronaut_rect.x < 0:
+        astronaut_rect.x = 0
+    if astronaut_rect.x > WIDTH - astronaut_rect.width:
+        astronaut_rect.x = WIDTH - astronaut_rect.width
+
 
 # Define main loop
 running = True
@@ -44,24 +55,13 @@ while running:
 
     # Draw graphics and output
     keys = pygame.key.get_pressed()
+    moving()
 
-    #Moving astronaut left and right
-    if keys[pygame.K_LEFT]:
-        astronaut_rect.x -= 5
-    if keys[pygame.K_RIGHT]:
-        astronaut_rect.x += 5
-
-    #keep astronaut within screen boundaries 
-    if astronaut_rect.x < 0:
-        astronaut_rect.x = 0
-    if astronaut_rect.x > WIDTH - astronaut_rect.width:
-        astronaut_rect.x = WIDTH - astronaut_rect.width
 
 
     # Update display
     pygame.display.flip()
     clock.tick(30)  # Limit frame rate to 30 fps
-
 
 # Quit Pygame   
 pygame.quit()
