@@ -43,6 +43,20 @@ while running:
     screen.blit(astronaut, astronaut_rect)
 
     # Draw graphics and output
+    keys = pygame.key.get_pressed()
+
+    #Moving astronaut left and right
+    if keys[pygame.K_LEFT]:
+        astronaut_rect.x -= 5
+    if keys[pygame.K_RIGHT]:
+        astronaut_rect.x += 5
+
+    #keep astronaut within screen boundaries 
+    if astronaut_rect.x < 0:
+        astronaut_rect.x = 0
+    if astronaut_rect.x > WIDTH - astronaut_rect.width:
+        astronaut_rect.x = WIDTH - astronaut_rect.width
+
 
     # Update display
     pygame.display.flip()
