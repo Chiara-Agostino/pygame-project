@@ -50,9 +50,14 @@ def draw_spaceships(spaceships):
 def moving():
     keys = pygame.key.get_pressed()
     if keys[pygame.K_LEFT]:
-        astronaut_rect.x -= 5
+        astronaut_rect.x -= 7
     if keys[pygame.K_RIGHT]:
-        astronaut_rect.x += 5
+        astronaut_rect.x += 7
+
+    if astronaut_rect.x < 0:
+        astronaut_rect.x = 0
+    if astronaut_rect.x > WIDTH - astronaut_rect.width:
+        astronaut_rect.x = WIDTH - astronaut_rect.width
 
 
 # Define main loop
