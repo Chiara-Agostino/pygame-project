@@ -59,12 +59,23 @@ def moving():
     if astronaut_rect.x > WIDTH - astronaut_rect.width:
         astronaut_rect.x = WIDTH - astronaut_rect.width
 
+def check_collisions(spaceships, astronaut_rect):
+    for spaceship in spaceships:
+        if spaceship[0].colliderect(astronaut_rect):
+            return True
+    return False
+
+def reset_game():
+    global spaceships, astronaut_rect
+    spaceships = []
+    astronaut_rect.midbottom = (WIDTH // 2, HEIGHT)
+
 
 # Define main loop
 running = True
 clock = pygame.time.Clock()
 spaceships = []
-max_spaceships = 8  # Maximum number of spaceships allowed on the screen
+max_spaceships = 6 
 
 
 # Initialize clock object to cap frame rate
@@ -89,6 +100,8 @@ while running:
     # Handle astronaut movement
     moving()
 
+    if check_collisions(spaceships, astronaut_rect):
+        reset_game()
     # Update display
     pygame.display.flip()
     clock.tick(30)  # Limit frame rate to 30 fps
