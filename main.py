@@ -7,6 +7,7 @@ Description: Description of your program here.
 import pygame
 import sys
 import random
+import time
 
 # Initialize Pygame
 pygame.init()
@@ -69,6 +70,7 @@ def reset_game():
     global spaceships, astronaut_rect
     spaceships = []
     astronaut_rect.midbottom = (WIDTH // 2, HEIGHT)
+    max_spaceships = 5
 
 
 # Define main loop
@@ -76,6 +78,7 @@ running = True
 clock = pygame.time.Clock()
 spaceships = []
 max_spaceships = 6 
+start_time = time.time()
 
 
 # Initialize clock object to cap frame rate
@@ -99,9 +102,16 @@ while running:
 
     # Handle astronaut movement
     moving()
-
+    
+    #Reser game if astronaut comes into contact with spaceship
     if check_collisions(spaceships, astronaut_rect):
         reset_game()
+
+    #Increase number of spaceships on screen as time passes
+
+    elapsed_time = time.time() - start_time
+    max_spaceships = 5 + int(elapsed_time / 10)
+
     # Update display
     pygame.display.flip()
     clock.tick(30)  # Limit frame rate to 30 fps
