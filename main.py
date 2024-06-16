@@ -17,6 +17,7 @@ WIDTH, HEIGHT = 800, 600
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Pygame Window")
 
+
 # Define colours
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
@@ -83,16 +84,19 @@ def check_collisions(spaceships, astronaut_rect):
             return True
     return False
 
+
 def handle_time():
     elapsed_time = time.time() - start_time
     max_spaceships = 5 + int(elapsed_time / 10)
 
 
 def reset_game():
-    global spaceships, astronaut_rect
+    global spaceships, astronaut_rect, start_time, max_spaceships, player_score
     spaceships = []
     astronaut_rect.midbottom = (WIDTH // 2, HEIGHT)
+    start_time = time.time()
     max_spaceships = 5    
+    player_score = 0
 
 
 # Define main loop
@@ -111,6 +115,11 @@ def display_title_screen():
     screen.blit(text, text_rect)
     pygame.display.flip()
 
+
+def display_score(score):
+    font = pygame.font.Font(None, 36)
+    score_text = font.render(f"Score: {int(player_score)}", True, WHITE)
+    screen.blit(score_text, (10, 10))
 
 # Initialize clock object to cap frame rate
 
@@ -141,14 +150,22 @@ while running:
 
         # Handle astronaut movement
         moving()
-        handle_time()
     
-        #Reser game if astronaut comes into contact with spaceship
+        handle_time()
+
+        # Update and display score
+        elapsed_time = time.time() - start_time
+        player_score = elapsed_time 
+        display_score(player_score)
+    
+        #Reset game if astronaut comes into contact with spaceship
         if check_collisions(spaceships, astronaut_rect):
             game_state = GAME_OVER
+            final_score = player_score
     
 
     elif game_state == GAME_OVER:
+        screen.fill(BLACK)
         font = pygame.font.Font(None, 74)
         text = font.render("Game Over!", True, WHITE)
         text_rect = text.get_rect(center = (WIDTH // 2, HEIGHT // 2))
@@ -156,6 +173,15 @@ while running:
         pygame.display.flip()
         pygame.time.wait(2000)
         game_state = OPENING
+
+
+        font = pygame.font.Font(None, 36)
+        score_text = font.render(f"Final Score: {int(final_score)}", True, WHITE)
+        score_text_rect = score_text.get_rect(center=(WIDTH // 2, HEIGHT // 2 + 50))
+        screen.blit(score_text, score_text_rect)
+                    
+                                 
+
 
     
 
