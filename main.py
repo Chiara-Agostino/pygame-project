@@ -170,15 +170,15 @@ while running:
         text = font.render("Game Over!", True, WHITE)
         text_rect = text.get_rect(center = (WIDTH // 2, HEIGHT // 2))
         screen.blit(text, text_rect)
-        pygame.display.flip()
-        pygame.time.wait(2000)
-        game_state = OPENING
-
 
         font = pygame.font.Font(None, 36)
         score_text = font.render(f"Final Score: {int(final_score)}", True, WHITE)
         score_text_rect = score_text.get_rect(center=(WIDTH // 2, HEIGHT // 2 + 50))
         screen.blit(score_text, score_text_rect)
+
+        pygame.display.flip()
+        pygame.time.wait(2000)
+        game_state = OPENING
                     
                                  
 
