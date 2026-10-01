@@ -34,3 +34,4 @@ The main goal of the game is to achieve the highest score by avoiding the spaces
 
 
 
+# pygame-project
