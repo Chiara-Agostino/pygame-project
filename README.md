@@ -1,4 +1,3 @@
-# ICS3U-Pygame-CPT
 
 # Astral Avoidance
 
